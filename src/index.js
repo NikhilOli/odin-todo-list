@@ -1,3 +1,4 @@
+import { renderProjects } from "./modules/dom";
 import { addProject, addTodo, deleteTodo, editTodo, getProjects, toggleTodo } from "./modules/projects";
 import "./style.css";
 
@@ -11,4 +12,14 @@ addTodo(1, "Practice coding");
 getProjects().push("Invalid project");
 
 addProject("JavaScript");
-console.log(getProjects());
+renderProjects();
+addProject("JavaScript");
+renderProjects();
+toggleTodo(0,1)
+addProject("Personal");
+renderProjects();
+
+addProject("React");
+renderProjects();
+
+console.log(getProjects());    
