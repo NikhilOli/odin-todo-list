@@ -15,12 +15,10 @@ projects.forEach((project, projectIndex) => {
         const todoTitle = document.createElement("p");
         todoTitle.textContent = todo.title;
         const button = document.createElement("button");
-        button.textContent = "Complete";
         if (todo.completed) {
             todoTitle.classList.add("completed");
-        } else {
-            button.textContent = "Undo";
         }
+        button.textContent = todo.completed ? "Undo" : "Complete";
         projetContainer.appendChild(todoTitle)
         projetContainer.appendChild(button)
         button.addEventListener("click", () => {
