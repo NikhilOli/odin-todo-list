@@ -6,7 +6,16 @@ const projectForm = document.querySelector("#project-form");
 
 projectForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  console.log("Project form submitted!");
+
+  const projectInput = document.querySelector("#project-name");
+  const name = projectInput.value.trim();
+
+  if (!name) return;
+
+  addProject(name);
+  renderProjects();
+
+  projectForm.reset();
 });
 
 addProject("JavaScript Learning");
