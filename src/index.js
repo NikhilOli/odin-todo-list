@@ -2,6 +2,13 @@ import { renderProjects } from "./modules/dom";
 import { addProject, addTodo, deleteTodo, editTodo, getProjects, toggleTodo } from "./modules/projects";
 import "./style.css";
 
+const projectForm = document.querySelector("#project-form");
+
+projectForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  console.log("Project form submitted!");
+});
+
 addProject("JavaScript Learning");
 addProject("Personal");
 addTodo(0, "Practice arrays");
