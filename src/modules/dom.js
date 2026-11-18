@@ -1,16 +1,17 @@
-import { getProjects, toggleTodo } from "./projects";
+import { addTodo, getProjects, toggleTodo } from "./projects";
 
 
 const app = document.querySelector("#app");
+
 export function renderProjects() {
     app.replaceChildren();
     const projects = getProjects();
 projects.forEach((project, projectIndex) => {
-    const projetContainer = document.createElement("div");
-    projetContainer.classList.add("project");
+    const projectContainer = document.createElement("div");
+    projectContainer.classList.add("project");
     const heading = document.createElement("h1");
     heading.textContent = project.name;
-    projetContainer.appendChild(heading)
+    projectContainer.appendChild(heading)
     project.todos.forEach((todo, todoIndex) => {
         const todoTitle = document.createElement("p");
         todoTitle.textContent = todo.title;
@@ -19,13 +20,44 @@ projects.forEach((project, projectIndex) => {
             todoTitle.classList.add("completed");
         }
         button.textContent = todo.completed ? "Undo" : "Complete";
-        projetContainer.appendChild(todoTitle)
-        projetContainer.appendChild(button)
+        projectContainer.appendChild(todoTitle)
+        projectContainer.appendChild(button)
         button.addEventListener("click", () => {
             toggleTodo(projectIndex, todoIndex)
             renderProjects()
         })
     })
-    app.appendChild(projetContainer)
+    // Create Add Task form
+const todoForm = document.createElement("form");
+todoForm.classList.add("todo-form");
+
+const todoInput = document.createElement("input");
+todoInput.type = "text";
+todoInput.placeholder = "Enter task title";
+todoInput.required = true;
+
+const addTodoButton = document.createElement("button");
+addTodoButton.type = "submit";
+addTodoButton.textContent = "Add Task";
+
+// Add elements to form
+todoForm.append(todoInput, addTodoButton);
+
+// Add form to project container
+projectContainer.appendChild(todoForm);
+todoForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+
+    const title = todoInput.value.trim();
+
+    if (!title) return;
+
+    addTodo(projectIndex, title);
+    renderProjects();
+
+    todoForm.reset();
+});
+    app.appendChild(projectContainer)
 })
 }
