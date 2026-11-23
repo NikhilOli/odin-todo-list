@@ -1,4 +1,4 @@
-import { addTodo, getProjects, toggleTodo } from "./projects";
+import { addTodo, deleteTodo, editTodo, getProjects, toggleTodo } from "./projects";
 
 
 const app = document.querySelector("#app");
@@ -16,14 +16,29 @@ projects.forEach((project, projectIndex) => {
         const todoTitle = document.createElement("p");
         todoTitle.textContent = todo.title;
         const button = document.createElement("button");
+        const deleteBtn = document.createElement("button");
+        const editBtn = document.createElement("button");
         if (todo.completed) {
             todoTitle.classList.add("completed");
         }
         button.textContent = todo.completed ? "Undo" : "Complete";
-        projectContainer.appendChild(todoTitle)
-        projectContainer.appendChild(button)
+        deleteBtn.textContent = "Delete";
+        editBtn.textContent = "Edit";
+        projectContainer.append(todoTitle, button, deleteBtn, editBtn);
         button.addEventListener("click", () => {
             toggleTodo(projectIndex, todoIndex)
+            renderProjects()
+        })
+        deleteBtn.addEventListener("click", () => {
+            deleteTodo(projectIndex, todoIndex)
+            renderProjects()
+        })
+        editBtn.addEventListener("click", () => {
+            const updatedTodo = prompt();
+            if (updatedTodo === null) {
+                return;
+            }
+            editTodo(projectIndex, todoIndex, updatedTodo)
             renderProjects()
         })
     })
